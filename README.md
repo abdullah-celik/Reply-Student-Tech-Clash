@@ -1,46 +1,69 @@
-# 🕵️ PrivateEye: The Local Multimodal Analyst
+# 🏥 C.A.L.M. (Critical Agent Logic Module)
 
-> **An offline, agentic intelligence that "sees" your files and answers questions without data ever leaving your machine.**
+> **Student Clash 2025** > **Category:**Tech
+## 📖 Overview
+**C.A.L.M.** is an autonomous **Clinical Decision Support System** designed to restore order to the chaotic environment of the Intensive Care Unit (ICU).
 
-![License](https://img.shields.io/badge/license-MIT-green) ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![Ollama](https://img.shields.io/badge/backend-Ollama-orange) ![Status](https://img.shields.io/badge/status-Prototype-yellow)
+ICU clinicians suffer from severe **Alarm Fatigue**, caused by thousands of daily alerts from uncoordinated devices. **C.A.L.M.** solves this not by silencing sensors, but by employing a "Digital Team" of specialized AI agents that negotiate in real-time to filter noise and surface only **Critical Logic**.
 
-## 💡 The Problem
-Current AI tools require you to upload data to the cloud. This is a dealbreaker for:
-* **Legal/Medical evidence** (Privacy laws).
-* **Personal journals/photos** (Privacy concerns).
-* **Remote locations** (No internet access).
+## 🚀 The Problem
+* **Cognitive Overload:** Clinicians must synthesize data from 10+ disconnected screens.
+* **Alarm Fatigue:** 72-99% of clinical alarms are false or non-actionable, leading to desensitization.
+* **Context Blindness:** Standard monitors scream "Low Heart Rate" even if the patient is a sleeping athlete; they lack the logic to understand *why*.
 
-Furthermore, most local RAG (Retrieval Augmented Generation) systems are **text-only**. They fail to understand charts, handwritten notes, or photographs.
+## 💡 The Solution: C.A.L.M. Architecture
+We utilize a **Level 3 Multi-Agent Approach** to separate detection from reasoning. The system does not just *react*; it *thinks* before it notifies.
 
-## 🚀 The Solution
-**PrivateEye** is a fully local, multimodal agent. It ingests mixed-media folders (images, PDFs, text), uses Vision-Language Models (VLMs) to "transcribe" visual data into semantic descriptions, and builds a searchable local knowledge graph.
+### The Agentic Workflow
+The module consists of three autonomous agents working in a loop:
 
-### Key Capabilities
-* **👁️ Visual Intelligence:** Automatically analyzes images (OCR, object detection, scene description) using `qwen2.5-vl`.
-* **🔒 100% Air-Gapped:** Runs entirely on `localhost`. No API keys, no cloud usage.
-* **🧠 Cross-Modal Reasoning:** Can answer questions that require combining visual evidence with textual records (e.g., *"Does the date on the receipt image match the travel log text file?"*).
+1.  **The Sentinel (Input Agent)**
+    * *Function:* Pure data ingestion (Vitals, Labs, IoT).
+    * *Logic:* High sensitivity. If a number is out of range, it flags an **"Anomaly Candidate"**.
+    * *Motto:* "Miss nothing."
+
+2.  **The Historian (Context Agent)**
+    * *Function:* Deep EMR analysis (Patient History, Meds, Notes).
+    * *Logic:* It validates the Sentinel's candidate against the patient's specific profile.
+    * *Motto:* "Check the context."
+    * *Capability:* Can issue an **"Objection"** (e.g., *Objecting to Low BP alert because patient was just administered a vasodilator*).
+
+3.  **The Triage Officer (Output Agent)**
+    * *Function:* Decision & Communication.
+    * *Logic:* Weighs the Sentinel's fear against the Historian's facts.
+    * *Action:* Autonomously decides the **Alert Level**:
+        * 🔴 **Code Red:** Audible Alarm (Immediate Intervention).
+        * 🟡 **Yellow Log:** Silent update to the dashboard (Watchlist).
+        * 🟢 **Suppress:** False alarm dismissed with a log entry.
 
 ---
 
-## 🛠️ Tech Stack
+## ⚙️ Technical Implementation
 
-* **Orchestration:** Python + LangChain/LangGraph
-* **Local Inference:** [Ollama](https://ollama.com/)
-* **Models:**
-    * *Vision:* `qwen2.5-vl` (or `llama3.2-vision`)
-    * *Reasoning:* `mistral` or `llama3`
-* **Vector Database:** ChromaDB (Local persistence)
-* **UI:** Streamlit
+### Prerequisites
+* Python 3.8+
+* OpenAI API Key (or compatible LLM endpoint)
 
----
+### Installation
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/yourusername/calm-agent.git](https://github.com/yourusername/calm-agent.git)
+    cd calm-agent
+    ```
 
-## ⚙️ Installation & Setup
+2.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+    *(Includes `openai`, `python-dotenv`, `pydantic`)*
 
-### 1. Prerequisites
-Ensure you have **Python 3.10+** and **Ollama** installed.
+3.  **Security Setup:**
+    Create a `.env` file in the root directory. **Do not hardcode keys.**
+    ```env
+    OPENAI_API_KEY=sk-your-secret-key-here
+    ```
 
-### 2. Pull Local Models
-Run the following in your terminal to download the necessary weights (requires ~6GB VRAM total):
+### How to Run
+Start the logic engine simulation:
 ```bash
-ollama pull qwen2.5-vl  # The vision model
-ollama pull mistral     # The reasoning model
+python main.py
